@@ -1,7 +1,7 @@
 Prerequisites https://grpc.io/docs/languages/dart/quickstart/#prerequisites
 
 ```shell
-dart pub global activate protoc_plugin
+dart pub global activate protoc_plugin 20.0.1
 
 dart pub get
 

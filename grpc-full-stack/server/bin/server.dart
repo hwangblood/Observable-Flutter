@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:protos/protos.dart';
-import 'package:server/server.dart' as server;
+import 'package:server/services/services.dart';
 
 Future<void> main(List<String> arguments) async {
   final serv = Server([
-    // TODO: declare services here
+    // register services here
+    TodoService(),
   ]);
 
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
