@@ -4,3 +4,5 @@
 library protos;
 
 export 'src/generated/generated.dart';
+
+export 'package:grpc/grpc.dart';

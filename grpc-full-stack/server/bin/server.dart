@@ -1,5 +1,16 @@
+import 'dart:io';
+
+import 'package:protos/protos.dart';
 import 'package:server/server.dart' as server;
 
-void main(List<String> arguments) {
-  print('Hello world: ${server.calculate()}!');
+Future<void> main(List<String> arguments) async {
+  final serv = Server([
+    // TODO: declare services here
+  ]);
+
+  final port = int.parse(Platform.environment['PORT'] ?? '8080');
+
+  await serv.serve(port: port);
+
+  print('gRPC server listening on port $port...');
 }
