@@ -10,4 +10,5 @@ message GetTodoByIdRequest { int32 id = 1; }
 
 service TodoService {
   rpc GetTodo(GetTodoByIdRequest) returns (Todo) {}
+  rpc ListTodo(stream GetTodoByIdRequest) returns (stream Todo) {}
 }

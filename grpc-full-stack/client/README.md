@@ -1,3 +1,9 @@
 # client
 
-A new Flutter project.
+run app :
+
+```shell
+flutter pub get
+flutter run -d linux
+```
+

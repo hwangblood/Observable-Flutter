@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:protos/protos.dart';
@@ -28,7 +30,9 @@ class _HomePageState extends State<HomePage> {
   late ClientChannel _channel;
   late TodoServiceClient _stub;
 
-  int _counter = 0;
+  late Stream<GetTodoByIdRequest> requestStream;
+  late Stream<Todo> todoStream;
+
   Todo? todo;
 
   @override
@@ -44,25 +48,24 @@ class _HomePageState extends State<HomePage> {
 
     _stub = TodoServiceClient(_channel);
 
-    _fetchTodo();
+    requestStream = Stream<GetTodoByIdRequest>.periodic(
+      const Duration(seconds: 1),
+      (count) => GetTodoByIdRequest(id: count),
+    );
+
+    todoStream = _stub.listTodo(requestStream);
+
+    todoStream.listen((value) {
+      setState(() {
+        todo = value;
+      });
+    });
   }
 
   @override
   void dispose() {
     _channel.shutdown();
     super.dispose();
-  }
-
-  Future<void> _fetchTodo() async {
-    setState(() {
-      _counter++;
-    });
-
-    _stub.getTodo(GetTodoByIdRequest(id: _counter)).then(
-          (p0) => setState(
-            () => todo = p0,
-          ),
-        );
   }
 
   @override
@@ -85,10 +88,6 @@ class _HomePageState extends State<HomePage> {
                   todo!.toString(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _fetchTodo,
-          child: const Icon(Icons.refresh),
         ),
       ),
     );

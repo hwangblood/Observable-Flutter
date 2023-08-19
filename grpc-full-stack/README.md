@@ -1,6 +1,6 @@
 # gRPC in Dart Full Stack
 
-a deep dive into how gRPC can speed up your full-stack Dart development.
+Check out READMEs of `protos`, `server` and `client` modules to get started.
 
 ## Resources
 
